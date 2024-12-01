@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Replace with your actual OpenAI API key
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "";
 
 // Function to fetch article based on words
 export const generateArticle = async (words) => {

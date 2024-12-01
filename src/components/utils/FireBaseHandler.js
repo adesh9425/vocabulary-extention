@@ -5,13 +5,13 @@ import {  get, child } from "firebase/database";
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDCUtwxk7WTWLSYuxoI_TwTF53vlNMlcSI",
-    authDomain: "vocabulary-extension.firebaseapp.com",
-    projectId: "vocabulary-extension",
-    storageBucket: "vocabulary-extension.appspot.com",
+    apiKey: "AIzaSyDCNMlcSI",
+    authDomain: "vocan.firebaseapp.com",
+    projectId: "vocabuxtension",
+    storageBucket: "vocabul.appspot.com",
     messagingSenderId: "757120853126",
-    appId: "1:757120853126:web:50c768b8f4e272b5b25d07",
-    measurementId: "G-93SKFPN280",
+    appId: "1:757120853126:web:",
+    measurementId: "G-",
 };
 
 const app = initializeApp(firebaseConfig);
