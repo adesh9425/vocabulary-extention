@@ -1,18 +1,19 @@
-import { Volume2 } from 'lucide-react';
+import React from "react";
 
-export default function WordCardComponent() {
-  return (
-    <div>
-        
-      <div className="max-w-md mx-auto bg-white rounded-xl p-5 border border-customGray 
-      shadow-lg overflow-hidden">
-        
-        <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold text-gray-">{"Word"}</h1>
-            <p className="text-sm text-gray-500">{"Definition"}</p>
+interface WordCardProps {
+    word: string;
+    onClick: () => void; // Triggered on card click
+}
+
+export default function WordCardComponent({ word, onClick }: WordCardProps) {
+    return (
+        <div
+            className="flex items-center justify-center w-[50vw] h-[50vh] bg-white rounded-2xl p-8 border border-gray-300 shadow-xl cursor-pointer"
+            onClick={onClick} // Triggered when the card is clicked
+        >
+            <div className="flex flex-col items-center justify-center space-y-4">
+                <h1 className="text-3xl font-bold text-gray-800">{word}</h1>
+            </div>
         </div>
-        
-      </div>
-    </div>
-  );
+    );
 }
