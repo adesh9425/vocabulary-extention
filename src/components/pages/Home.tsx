@@ -1,13 +1,22 @@
-import { useState } from "react";
+
 import { WordListingComponent } from "../core/WordListingComponent";
-import StoryCard from "../core/StoryCard";
+import {Story} from "./Story";
+
+
+
+
 
 export const Home=()=>{
    
     return (
       <div>
-        <WordListingComponent />
-        <StoryCard />
+          <div>
+              {/*<WordListingComponent />*/}
+          </div>
+        <div >
+            {/*<Story />*/}
+        </div>
+
       </div>
     )
       

@@ -1,8 +1,12 @@
-export default function StoryCard() {
+interface StoryCard {
+    story: string;
+}
+
+export default function StoryCard(story:StoryCard) {
     const currentDate = new Date().toLocaleDateString(); // Get current date
 
     return (
-        <div className="mx-auto p-5 w-full h-screen
+        <div className="mx-auto max-w-5xl p-5  h-screen
         bg-gradient-to-r from-orange-50 via-amber-50 to-amber-20 
         shadow-lg rounded-lg">
             <div className="flex justify-end">
@@ -10,8 +14,8 @@ export default function StoryCard() {
                 Date: {currentDate}
             </p>
             </div>
-            <h1 className="text-2xl font-bold mt-4">Story Card</h1>
-            <p className="text-lg text-gray-700 mt-2">Today's Story</p>
+
+            <p className="text-lg text-gray-700 mt-2">{story.story}</p>
             {/* Display current date */}
             
         </div>
