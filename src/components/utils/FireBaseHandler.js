@@ -1,7 +1,7 @@
-// Import required Firebase functions
-import {initializeApp} from "firebase/app";
-import {getDatabase, onValue, push, ref, set} from "firebase/database";
-import {  get, child } from "firebase/database";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set, get, child } from "firebase/database";
+import fs from 'fs';
+import csvParser from 'csv-parser';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -19,49 +19,24 @@ const db = getDatabase(app);
 
 
 
-export const addWordToRealtimeDatabase = async (wordData) => {
+export const getAllWordsFromRealtimeDatabase = async () => {
     try {
-        const wordsRef = ref(db, 'words'); // Reference to "words" node
-        const wordKey = wordData; // Use the word as the unique key
-
-        // Check if the word already exists
-        const existingWordSnapshot = await get(child(wordsRef, wordKey));
-        if (existingWordSnapshot.exists()) {
-            console.log("Word already exists:", wordKey);
-            return;
-        }
-
-        // Save the word data with the word as the key
-        await set(child(wordsRef, wordKey), wordData);
-        console.log("Word added with ID:", wordKey);
-    } catch (error) {
-        console.error("Error adding word:", error);
-    }
-};
-
-
-
-// Get all words from Firestore
-// Get all words from Realtime Database
-export const getAllWordsFromRealtimeDatabase = () => {
-    return new Promise((resolve, reject) => {
         const wordsRef = ref(db, 'words');
-        onValue(wordsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                const words = Object.entries(data).map(([key, value]) => ({
-                    value
-                }));
-                const shuffledWords = shuffleArray(words);
-                resolve(words);
-            } else {
-                console.log("No words found");
-                resolve([]);
-            }
-        }, (error) => {
-            reject(error);
-        });
-    });
+        const snapshot = await get(wordsRef);
+        const data = snapshot.val();
+        if (data) {
+            const words = Object.entries(data).map(([key, value]) => ({
+                value,
+            }));
+            return shuffleArray(words);
+        } else {
+            console.log("No words found");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching words:", error);
+        throw error;
+    }
 };
 
 const shuffleArray = (array) => {
@@ -69,5 +44,6 @@ const shuffleArray = (array) => {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
-    return array;
+
+    return array.slice(100);
 };
