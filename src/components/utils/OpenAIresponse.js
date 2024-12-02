@@ -1,44 +1,24 @@
-import axios from "axios";
 
-// Replace with your actual OpenAI API key
-const OPENAI_API_KEY = "";
+const COHORE_API_KEY=" Bearer 6cNjDfgROZFRHK9KzCpqDfvJQnZWmrmTuyhbxEZ3"
 
-// Function to fetch article based on words
-export const generateArticle = async (words) => {
-    try {
-        const prompt = `Write a detailed article using the following words: ${words.join(", ")}. The article should include a natural and informative use of all these words in context.`;
 
-        const response = await axios.post(
-            "https://api.openai.com/v1/chat/completions",  // Updated endpoint
-            {
-                model: "gpt-3.5-turbo",  // Using GPT-4 model
-                messages: [
-                    {
-                        role: "system",
-                        content: "You are a helpful assistant."
-                    },
-                    {
-                        role: "user",
-                        content: prompt
-                    }
-                ],
-                max_tokens: 500,
-                temperature: 0.7, // Adjust the creativity of the model
-                top_p: 1,
-                frequency_penalty: 0,
-                presence_penalty: 0,
-            },
-            {
-                headers: {
-                    "Authorization": `Bearer ${OPENAI_API_KEY}`,
-                    "Content-Type": "application/json",
-                },
-            }
-        );
 
-        return response.data.choices[0].message.content.trim(); // Extract generated article
-    } catch (error) {
-        console.error("Error generating article:", error);
-        throw error;
-    }
+export const generateStory = async (words) => {
+    const response = await fetch('https://api.cohere.ai/generate', {
+        method: 'POST',
+        headers: {
+            'Authorization': COHORE_API_KEY,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            model: 'command-r-08-2024',
+            prompt: `Write a technical article with tough vocabulary of high frequency it should have good genre and must have very coherent and contextual use of the provided words using these words: ${words.join(', ')}.`,
+            max_tokens: 500,
+        }),
+    });
+
+    const data = await response.json();
+    return data.text;
 };
+
+

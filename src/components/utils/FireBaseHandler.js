@@ -5,13 +5,13 @@ import {  get, child } from "firebase/database";
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDCNMlcSI",
-    authDomain: "vocan.firebaseapp.com",
-    projectId: "vocabuxtension",
-    storageBucket: "vocabul.appspot.com",
+    apiKey: "AIzaSyDCUtwxk7WTWLSYuxoI_TwTF53vlNMlcSI",
+    authDomain: "vocabulary-extension.firebaseapp.com",
+    projectId: "vocabulary-extension",
+    storageBucket: "vocabulary-extension.appspot.com",
     messagingSenderId: "757120853126",
-    appId: "1:757120853126:web:",
-    measurementId: "G-",
+    appId: "1:757120853126:web:50c768b8f4e272b5b25d07",
+    measurementId: "G-93SKFPN280",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -52,6 +52,7 @@ export const getAllWordsFromRealtimeDatabase = () => {
                 const words = Object.entries(data).map(([key, value]) => ({
                     value
                 }));
+                const shuffledWords = shuffleArray(words);
                 resolve(words);
             } else {
                 console.log("No words found");
@@ -61,4 +62,12 @@ export const getAllWordsFromRealtimeDatabase = () => {
             reject(error);
         });
     });
+};
+
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 };

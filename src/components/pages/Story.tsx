@@ -1,11 +1,14 @@
-import StoryCard from "../core/StoryCard"
-import {useEffect, useState} from "react";
-import {generateArticle} from "../utils/OpenAIresponse";
-import {getAllWordsFromRealtimeDatabase} from "../utils/FireBaseHandler";
+import StoryCard from "../core/StoryCard";
+import { useEffect, useState } from "react";
 
-export const Story=()=>{
-    const [storyArticles,setStoryArticles] = useState("");
+import { getAllWordsFromRealtimeDatabase } from "../utils/FireBaseHandler";
+import { generateStory } from "../utils/OpenAIresponse";
+
+export const Story = () => {
+    const [storyArticles, setStoryArticles] = useState("");
     const [words, setWords] = useState<string[]>([]);
+
+    // Fetch words from Firebase
     useEffect(() => {
         const fetchWords = async () => {
             try {
@@ -15,26 +18,27 @@ export const Story=()=>{
             } catch (error) {
                 console.error("Error fetching words:", error);
             }
-
         };
         fetchWords();
-    }, []);
+    }, []); // Empty dependency array ensures this runs only once
 
-    useEffect(()=>{
-        const fetchStory=async ()=>{
+    // Fetch story from OpenAI
+    useEffect(() => {
+        const fetchStory = async () => {
+            if (words.length === 0) return; // Ensure words are available before calling the API
             try {
-                let response = await generateArticle(words);
+                const response = await generateStory(words);
                 setStoryArticles(response);
+            } catch (error) {
+                console.log("Couldn't fetch from OpenAI", error);
             }
-            catch (error) {
-                console.log("Couldn't fetch from openAI", error);
-            }
-        }
+        };
         fetchStory();
-    })
+    }, [words]); // Run this effect only when `words` changes
+
     return (
         <>
-        <StoryCard story={storyArticles} />
+            <StoryCard story={storyArticles} />
         </>
-    )
-}
+    );
+};

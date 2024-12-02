@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Vocabulary Builder",
+  "description": "A browser extension to help build vocabulary while reading.",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "identity",
+    "oneNote"
+  ],
+  "background": {
+  
+  },
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "action": {
+   
+  },
+  
+ 
+  
+  "commands": {
+    "open_dashboard": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+D"
+      },
+      "description": "Open vocabulary dashboard"
+    }
+  }
+}

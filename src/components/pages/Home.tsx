@@ -11,10 +11,10 @@ export const Home=()=>{
     return (
       <div>
           <div>
-              <WordListingComponent />
+              {/*<WordListingComponent />*/}
           </div>
         <div >
-            <Story />
+            {/*<Story />*/}
         </div>
 
       </div>
